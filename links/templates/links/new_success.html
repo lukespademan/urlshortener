@@ -1,0 +1,6 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h1>Thank you</h1>
+<p>Your short link has been created. <a href="{% url 'links:redirect' path=short_link.path %}">{{ short_link.path }}</a> redirects to {{ short_link.destination }}</p>
+{% endblock %}
