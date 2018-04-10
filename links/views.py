@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Link
 from .forms import NewLink
 import uuid
+import qrcode
+import io
+import base64
+
 
 def url_redirect(request, path):
 
@@ -9,6 +13,7 @@ def url_redirect(request, path):
     if not url:
         return render(request, 'links/redirect_failed.html', {'path': path})
     return redirect(url.destination)
+
 
 def new_link(request):
     if request.method == 'POST':
@@ -22,7 +27,15 @@ def new_link(request):
                 while Link.objects.filter(path=l.path).first():
                     l.path = str(uuid.uuid4())[:8]
             l.save()
-            return render(request, 'links/new_success.html', {'short_link': l})
+
+            img = qrcode.make('https://lspade.xyz/l/' + l.path)
+
+            img_byte_arr = io.BytesIO()
+            img.save(img_byte_arr, format='PNG')
+            img_byte_arr = img_byte_arr.getvalue()
+            img_base64 = "data:image/png;base64," + base64.b64encode(img_byte_arr).decode()
+
+            return render(request, 'links/new_success.html', {'short_link': l, "qr_img": img_base64})
     else:
         form = NewLink()
 
