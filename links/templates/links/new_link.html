@@ -1,6 +1,7 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
+<h1>Create Short URL</h1>
 <form action="{% url 'links:new' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}

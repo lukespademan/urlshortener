@@ -16,9 +16,9 @@ def new_link(request):
         if form.is_valid():
             dest = form.cleaned_data["destination"]
             l = Link.objects.filter(destination=dest).first()
-            if not l:
+            if not l:	
                 l = Link(destination=dest)
-                l.save()
+            l.save()
             return render(request, 'links/new_success.html', {'short_link': l})
     else:
         form = NewLink()
