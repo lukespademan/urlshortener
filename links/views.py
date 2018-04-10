@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Link
 from .forms import NewLink
+import uuid
 
 def url_redirect(request, path):
 
@@ -18,6 +19,8 @@ def new_link(request):
             l = Link.objects.filter(destination=dest).first()
             if not l:	
                 l = Link(destination=dest)
+                while Link.objects.filter(path=l.path).first():
+                    l.path = str(uuid.uuid4())[:8]
             l.save()
             return render(request, 'links/new_success.html', {'short_link': l})
     else:
