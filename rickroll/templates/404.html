@@ -1,0 +1,6 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h1>404</h1>
+<p>I am sorry to say, but {{ request.path }} is not found on our servers. We think that you meant to go <a href="{% url 'rickroll:play' %}">here</a>.</p>
+{% endblock %}
