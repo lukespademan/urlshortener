@@ -7,5 +7,5 @@ class Link(models.Model):
     destination = models.URLField()
 
     def __str__(self):
-        return "%s" % self.path
+        return "%s        %s" % (self.path, self.destination)
 
