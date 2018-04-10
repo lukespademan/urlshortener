@@ -1,6 +1,7 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
-<h1>Thank you</h1>
-<p>Your short link has been created. <a href="{% url 'links:redirect' path=short_link.path %}">https://lspade.xyz/l/{{ short_link.path }}</a> redirects to {{ short_link.destination }}</p>
+  <h1>Thank you</h1>
+  <p>Your short link has been created. <a href="{% url 'links:redirect' path=short_link.path %}">https://lspade.xyz/l/{{ short_link.path }}</a> redirects to {{ short_link.destination }}</p>
+  <img src="{{ qr_img }}" alt="QR Code">
 {% endblock %}
