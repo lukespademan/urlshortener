@@ -39,6 +39,9 @@ media
 # CMake
 cmake-build-debug/
 
+# secret key should not be publicly availabe
+secret.txt
+
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 
