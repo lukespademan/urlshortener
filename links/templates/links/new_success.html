@@ -2,6 +2,6 @@
 
 {% block content %}
   <h1>Thank you</h1>
-  <p>Your short link has been created. <a href="{% url 'links:redirect' path=short_link.path %}">lspade.xyz/l/{{ short_link.path }}</a> redirects to {{ short_link.destination }}. The QRCode also redirects you to {{ short_link.destination }}.</p>
+  <p>Your short link has been created. Both <a href="{% url 'links:redirect' path=short_link.path %}">lspade.xyz/l/{{ short_link.path }}</a> and the QR Coderedirect to <a href="{{ short_link.destination }}">{{ short_link.destination }}</a>.</p>
   <img src="{{ qr_img }}" alt="QR Code" class="img-fluid">
 {% endblock %}
