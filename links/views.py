@@ -18,15 +18,18 @@ def url_redirect(request, path):
 def new_link(request):
     if request.method == 'POST':
         form = NewLink(request.POST)
-        
+
         if form.is_valid():
-            dest = form.cleaned_data["destination"]
+            dest = form.cleaned_data["destination"]  # get the url they typed
+            # find any objects with that url
             l = Link.objects.filter(destination=dest).first()
-            if not l:	
-                l = Link(destination=dest)
-                while Link.objects.filter(path=l.path).first():
-                    l.path = str(uuid.uuid4())[:8]
-            l.save()
+
+            path = str(uuid.uuid4())[:8]
+            if l is None:  # if short url does not exit
+                while Link.objects.filter(path=path).first() is not None:
+                    path = str(uuid.uuid4())[:8]
+                l = Link.objects.create(pk=uuid.uuid4(), destination=dest, path=path)
+                l.save()
 
             img = qrcode.make('https://lspade.xyz/l/' + l.path)
 
