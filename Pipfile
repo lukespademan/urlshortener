@@ -8,6 +8,8 @@ django = "*"
 image = "*"
 "psycopg2-binary" = "*"
 qrcode = "*"
+"psycopg2" = "*"
+"django-recaptcha2" = "*"
 
 [dev-packages]
 

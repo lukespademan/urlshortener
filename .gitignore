@@ -88,3 +88,5 @@ fabric.properties
 # End of https://www.gitignore.io/api/django,pycharm
 
 test.db
+rc_priv
+rc_pub

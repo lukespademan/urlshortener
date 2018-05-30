@@ -2,5 +2,10 @@
 
 {% block content %}
 <h1>Welcome to lspade.xyz</h1>
-<p>lspade.xyz is the url shortener that does not store any data but the shortened url and the destination. Go to <a href="{% url 'links:new' %}">lspade.xyz/l</a> to create a shortened url.</p>
+<p>lspade.xyz is the utiltiy site that only stores nessicery data.
+<ul>
+<li>the <a href="{% url 'links:new' %}">urlshortener</a> stores a unique id, a destination url, and a trigger url</li>
+<li>the <a href="{% url 'notes:new' %}">notes</a> app stores a unique id, the note title, and the note body</li>
+</ul>
+</p>
 {% endblock %}

@@ -1,5 +1,7 @@
 {% extends 'home/base.html' %}
 
+{% load recaptcha2 %}
+{% block extrahead %}{% recaptcha_init 'en-GB' %}{% endblock %}
 {% block content %}
 <h1>Create Short URL</h1>
 <form class="post-form" action="{% url 'links:new' %}" method="post">
