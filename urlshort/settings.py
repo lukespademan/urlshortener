@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'links',
     'home',
     'rickroll',
+    'notes',
+    'snowpenguin.django.recaptcha2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,6 +144,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# ReCaptch keys
+RECAPTCHA_PRIVATE_KEY= open(os.path.join(BASE_DIR, 'rc_priv')).read().strip()
+RECAPTCHA_PUBLIC_KEY= open(os.path.join(BASE_DIR, 'rc_pub')).read().strip()
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
