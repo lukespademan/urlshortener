@@ -148,6 +148,7 @@ USE_TZ = True
 RECAPTCHA_PRIVATE_KEY= open(os.path.join(BASE_DIR, 'rc_priv')).read().strip()
 RECAPTCHA_PUBLIC_KEY= open(os.path.join(BASE_DIR, 'rc_pub')).read().strip()
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
