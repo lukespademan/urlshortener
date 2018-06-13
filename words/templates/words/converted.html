@@ -1,0 +1,36 @@
+{% extends 'words/input.html' %}
+
+{% block morecontent %}
+
+<div class="row">
+<div class="col-6">
+{% if long_string %}
+{{ long_string }}<br>
+{% if long_made_of %}
+		{% for element in long_made_of %}
+		{{ element.name }}<br>
+		{% endfor %}
+{% endif %}
+{% else %}
+<p>Could not convert...</p>
+{% endif %}
+</div>
+<div class="col-6">
+{% if seperate_words %}
+	{% for word in seperate_words %}
+		{% for element in word %}
+		{{ element.symbol }}
+		{% endfor %}<br>
+	{% endfor %}
+{% endif %}
+
+{% if seperate_words %}
+	{% for word in seperate_words %}
+		{% for element in word %}
+		{{ element.name }}<br>
+		{% endfor %}
+	{% endfor %}
+{% endif %}
+</div>
+</div>
+{% endblock %}

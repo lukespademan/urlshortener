@@ -10,6 +10,8 @@ image = "*"
 qrcode = "*"
 "psycopg2" = "*"
 "django-recaptcha2" = "*"
+python-decouple = "*"
+chemicalwords = "*"
 
 [dev-packages]
 

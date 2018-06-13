@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'home',
     'rickroll',
     'notes',
+    'words',
     'snowpenguin.django.recaptcha2',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -154,3 +156,6 @@ RECAPTCHA_PUBLIC_KEY= open(os.path.join(BASE_DIR, 'rc_pub')).read().strip()
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+OXFORD_APP_ID = config('OXFORD_APP_ID', default='')
+OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
