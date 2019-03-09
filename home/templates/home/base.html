@@ -32,6 +32,10 @@
             <li class="nav-item{% if u == request.path %} active {% endif %}">
                 <a class="nav-link" href="{{ u }}">New Note</a>
             </li>
+            {% url 'words:query' as u %}
+            <li class="nav-item{% if u == request.path %} active {% endif %}">
+                <a class="nav-link" href="{{ u }}">Convert Phrase</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -42,7 +46,7 @@
 </main>
 <footer class="footer">
       <div class="container-fluid">
-        <span class="text-muted">lspade.xyz is developed my lukespademan. Source code is available at <a href="https://github.com/lukespademan/urlshortener">github</a></span>
+        <span class="text-muted">lspade.xyz is developed by lukespademan. Source code is available at <a href="https://github.com/lukespademan/urlshortener">github</a></span>
       </div>
 </footer>
 

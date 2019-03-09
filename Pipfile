@@ -12,6 +12,7 @@ qrcode = "*"
 "django-recaptcha2" = "*"
 python-decouple = "*"
 chemicalwords = "*"
+gunicorn = "*"
 
 [dev-packages]
 
