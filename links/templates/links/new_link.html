@@ -4,10 +4,30 @@
 {% block extrahead %}{% recaptcha_init 'en-GB' %}
 {% endblock %}
 {% block content %}
-<h1>Create Short URL</h1>
-<form class="post-form" action="{% url 'links:new' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn btn-primary" value="Create Link" />
-</form>
+<style>
+  .main-card {
+    padding: 20px;
+  }
+  .main-card h4 {
+    margin-top: 0;
+  }
+  .main-card form input[type="submit"] {
+    margin-top: 5px;
+  }
+</style>
+<div class="main-card mdl-card mdl-shadow--2dp">
+<h4>Create Short URL</h4>
+  <form action="{% url 'links:new' %}" method="post">
+      {{ form.non_field_errors }}
+      {% csrf_token %}
+      {{ form.destination.errors }}
+      <div class="mdl-textfield mdl-js-textfield">
+        {{ form.destination }}
+        <label class="mdl-textfield__label" for="{{ form.destination.id_for_label }}">Destination</label>
+      </div>
+      {{ form.captcha }}
+
+      <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" value="Create Link" />
+  </form>
+</div>
 {% endblock %}

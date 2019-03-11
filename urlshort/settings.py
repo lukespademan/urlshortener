@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rickroll',
     'notes',
     'words',
+    'turbolinks',
     'snowpenguin.django.recaptcha2',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -66,6 +67,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'turbolinks.middleware.TurbolinksMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

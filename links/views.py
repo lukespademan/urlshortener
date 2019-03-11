@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .models import Link
 from .forms import NewLink
 import uuid
@@ -20,6 +20,9 @@ def new_link(request):
         form = NewLink(request.POST)
 
         if form.is_valid():
+            root = request.build_absolute_uri()
+            print(root)
+
             dest = form.cleaned_data["destination"]  # get the url they typed
             # find any objects with that url
             l = Link.objects.filter(destination=dest).first()
@@ -28,17 +31,20 @@ def new_link(request):
             if l is None:  # if short url does not exit
                 while Link.objects.filter(path=path).first() is not None:
                     path = str(uuid.uuid4())[:8]
+
                 l = Link.objects.create(pk=uuid.uuid4(), destination=dest, path=path)
                 l.save()
 
-            img = qrcode.make('https://lspade.xyz/l/' + l.path)
+            short_url = root + l.path
+
+            img = qrcode.make(short_url)
 
             img_byte_arr = io.BytesIO()
             img.save(img_byte_arr, format='PNG')
             img_byte_arr = img_byte_arr.getvalue()
             img_base64 = "data:image/png;base64," + base64.b64encode(img_byte_arr).decode()
 
-            return render(request, 'links/new_success.html', {'short_link': l, "qr_img": img_base64})
+            return render(request, 'links/new_success.html', {'short_link': l, "qr_img": img_base64, 'short_url': short_url})
     else:
         form = NewLink()
 

@@ -13,6 +13,7 @@ qrcode = "*"
 python-decouple = "*"
 chemicalwords = "*"
 gunicorn = "*"
+django-turbolinks = "*"
 
 [dev-packages]
 

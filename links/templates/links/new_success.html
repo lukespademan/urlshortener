@@ -1,7 +1,66 @@
 {% extends 'home/base.html' %}
 
-{% block content %}
-  <h1>Thank you</h1>
-  <p>Your short link has been created. Both <a href="{% url 'links:redirect' path=short_link.path %}">lspade.xyz/l/{{ short_link.path }}</a> and the QR Coderedirect to <a href="{{ short_link.destination }}">{{ short_link.destination }}</a>.</p>
-  <img src="{{ qr_img }}" alt="QR Code" class="img-fluid">
+{% block extrahead %}
+<script>
+  function copyToClipboard(containerID) {
+    if (document.selection) {
+      var range = document.body.createTextRange();
+      range.moveToElementText(document.getElementById(containerID));
+      range.select().createTextRange();
+      document.execCommand("copy");
+    } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(document.getElementById(containerID));
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+    }
+    window['counter'] = 0;
+    var snackbarContainer = document.querySelector('#copy-notification');
+    var data = {message: 'URL copied to clipboard'};
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+  }
+</script>
 {% endblock %}
+
+{% block content %}
+
+<style>
+  .qrcode-card.mdl-card {
+    width: 256px;
+    height: 256px;
+    background: url('{{ qr_img }}');
+    background-size: cover;
+  }
+
+  .qrcode-card > .mdl-card__actions {
+    height: 52px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .qrcode-card__url {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+  }
+</style>
+  <h2>Link Created</h2>
+  <div class="qrcode-card mdl-card mdl-shadow--2dp" id="tt1"  onclick="copyToClipboard('short_link');">
+    <div class="mdl-card__title mdl-card--expand"></div>
+    <div class="mdl-card__actions">
+      <span class="qrcode-card__url" id="short_link">{{ short_url }}</span>
+    </div>
+  </div>
+
+  <div id="copy-notification" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+  </div>
+
+  <div class="mdl-tooltip" for="tt1">
+    Click the card<br>to copy the<br>short URL
+  </div>
+
+{% endblock %}
+
