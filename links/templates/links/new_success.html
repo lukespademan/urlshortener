@@ -52,10 +52,10 @@
   <div class="links-grid">
     {% for link in links %}
       <div>
-        <div class="qrcode-card mdl-card mdl-shadow--2dp" style="background: url('{{ link.qr_code }}'); background-size: cover;" id="tt{{ forloop.counter }}"  onclick="copyToClipboard('short_link');">
+        <div class="qrcode-card mdl-card mdl-shadow--2dp" style="background: url('{{ link.qr_code }}'); background-size: cover;" id="tt{{ forloop.counter }}"  onclick="copyToClipboard('short_link-{{ forloop.counter }}');">
           <div class="mdl-card__title mdl-card--expand"></div>
           <div class="mdl-card__actions">
-            <span class="qrcode-card__url" id="short_link">{{ link.url }}</span>
+            <span class="qrcode-card__url" id="short_link-{{ forloop.counter }}">{{ link.url }}</span>
           </div>
         </div>
 

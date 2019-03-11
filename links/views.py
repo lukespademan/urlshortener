@@ -52,6 +52,7 @@ def new_link(request):
 
                 l = Link.objects.create(pk=uuid.uuid4(), destination=dest, path=path)
                 l.save()
+                print("CREATED")
 
             if request.session.get("links", None) == None:
                 request.session["links"] = []
