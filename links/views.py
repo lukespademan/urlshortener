@@ -5,6 +5,7 @@ import uuid
 import qrcode
 import io
 import base64
+from urlshort import settings
 
 
 def url_redirect(request, path):
@@ -15,13 +16,30 @@ def url_redirect(request, path):
     return redirect(url.destination)
 
 
+def links_dashboard(request):
+    root = request.build_absolute_uri()
+
+    links = []
+
+    if request.session.get("links", None) == None:
+        return redirect(reverse('links:new'))
+
+    for link in request.session["links"][::-1]:
+        print("LINK")
+        print(link)
+        url = root + link
+        qr_code = gen_qr_code(url)
+        links.append({"url": url, "qr_code": qr_code})
+
+
+    return render(request, 'links/new_success.html', {'links': links})
+
+
 def new_link(request):
     if request.method == 'POST':
         form = NewLink(request.POST)
 
-        if form.is_valid():
-            root = request.build_absolute_uri()
-            print(root)
+        if form.is_valid() or settings.DEBUG:
 
             dest = form.cleaned_data["destination"]  # get the url they typed
             # find any objects with that url
@@ -35,18 +53,22 @@ def new_link(request):
                 l = Link.objects.create(pk=uuid.uuid4(), destination=dest, path=path)
                 l.save()
 
-            short_url = root + l.path
+            if request.session.get("links", None) == None:
+                request.session["links"] = []
+            request.session["links"].append(path)
 
-            img = qrcode.make(short_url)
-
-            img_byte_arr = io.BytesIO()
-            img.save(img_byte_arr, format='PNG')
-            img_byte_arr = img_byte_arr.getvalue()
-            img_base64 = "data:image/png;base64," + base64.b64encode(img_byte_arr).decode()
-
-            return render(request, 'links/new_success.html', {'short_link': l, "qr_img": img_base64, 'short_url': short_url})
+        return redirect(reverse('links:dash'))
     else:
         form = NewLink()
 
     return render(request, 'links/new_link.html', {'form': form})
 
+def gen_qr_code(url):
+    img = qrcode.make(url, error_correction=qrcode.constants.ERROR_CORRECT_M)
+
+    img_byte_arr = io.BytesIO()
+    img.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
+    img_base64 = "data:image/png;base64," + base64.b64encode(img_byte_arr).decode()
+
+    return img_base64

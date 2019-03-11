@@ -19,6 +19,7 @@ from . import views
 app_name = 'links'
 
 urlpatterns = [
+    path('new/', views.new_link, name='new'),
     path('<path>/', views.url_redirect, name='redirect'),
-    re_path(r'^$', views.new_link, name='new'),
+    re_path(r'^$', views.links_dashboard, name='dash'),
 ]

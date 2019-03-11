@@ -29,7 +29,6 @@
   .qrcode-card.mdl-card {
     width: 256px;
     height: 256px;
-    background: url('{{ qr_img }}');
     background-size: cover;
   }
 
@@ -44,23 +43,40 @@
     font-size: 14px;
     font-weight: 500;
   }
+  .btn-corner {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+  }
 </style>
-  <h2>Link Created</h2>
-  <div class="qrcode-card mdl-card mdl-shadow--2dp" id="tt1"  onclick="copyToClipboard('short_link');">
-    <div class="mdl-card__title mdl-card--expand"></div>
-    <div class="mdl-card__actions">
-      <span class="qrcode-card__url" id="short_link">{{ short_url }}</span>
-    </div>
+  <div class="links-grid">
+    {% for link in links %}
+      <div>
+        <div class="qrcode-card mdl-card mdl-shadow--2dp" style="background: url('{{ link.qr_code }}'); background-size: cover;" id="tt{{ forloop.counter }}"  onclick="copyToClipboard('short_link');">
+          <div class="mdl-card__title mdl-card--expand"></div>
+          <div class="mdl-card__actions">
+            <span class="qrcode-card__url" id="short_link">{{ link.url }}</span>
+          </div>
+        </div>
+
+        <div id="copy-notification" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+
+        <div class="mdl-tooltip" for="tt{{ forloop.counter }}">
+          Click the card<br>to copy the<br>short URL
+        </div>
+      </div>
+    {% endfor %}
   </div>
 
-  <div id="copy-notification" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-  </div>
-
-  <div class="mdl-tooltip" for="tt1">
-    Click the card<br>to copy the<br>short URL
-  </div>
 
 {% endblock %}
 
+{% block corner %}
+  <a href="/l/new/" class="btn-corner mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+    <i class="material-icons">add</i>
+  </a>
+
+{% endblock %}

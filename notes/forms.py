@@ -1,10 +1,10 @@
 from django import forms
 from .models import Note
-from snowpenguin.django.recaptcha2.fields import ReCaptchaField
-from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 class NewNote(forms.ModelForm):
-    captcha = ReCaptchaField(widget=ReCaptchaWidget())
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
     class Meta:
         model = Note
         fields = ['title', 'body']
@@ -17,3 +17,5 @@ class NewNote(forms.ModelForm):
                 'class': 'form-control'
                 })
             }
+
+

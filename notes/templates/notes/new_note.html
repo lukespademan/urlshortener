@@ -1,7 +1,5 @@
 {% extends 'home/base.html' %}
 
-{% load recaptcha2 %}
-{% block extrahead %}{% recaptcha_init 'en-GB' %}{% endblock %}
 {% block content %}
 <h1>New Note</h1>
 <form method="post">{% csrf_token %}

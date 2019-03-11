@@ -41,7 +41,7 @@ except NameError:
 if os.environ.get('DJANGO_DEBUG'):
     print("Debug is enabled.")
     DEBUG = True
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "*"]
 else:
     DEBUG = False
     ALLOWED_HOSTS = ["*"]
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'notes',
     'words',
     'turbolinks',
-    'snowpenguin.django.recaptcha2',
+    'captcha',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,3 +164,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 OXFORD_APP_ID = config('OXFORD_APP_ID', default='')
 OXFORD_APP_KEY = config('OXFORD_APP_KEY', default='')
+
+CAPTCHA_AJAX = True
+
+SESSION_SAVE_EVERY_REQUEST = True

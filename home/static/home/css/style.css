@@ -2,3 +2,9 @@
 main {
   padding: 20px;
 }
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 256px);
+  grid-gap: 1em;
+}
